@@ -72,7 +72,7 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
         panel1 = new JPanel();
         add(panel1, WEST);
         panel1.setBackground(Color.white);
-        ImageIcon imagenFondo = new ImageIcon(new ImageIcon("src/imagenFondo.jpg").getImage().getScaledInstance(130,120,Image.SCALE_DEFAULT));
+        ImageIcon imagenFondo = new ImageIcon(new ImageIcon("src/amazon.jpg").getImage().getScaledInstance(130,120,Image.SCALE_DEFAULT));
         JLabel label = new JLabel("", imagenFondo, JLabel.CENTER);
         panel1.add(label,WEST);
 
