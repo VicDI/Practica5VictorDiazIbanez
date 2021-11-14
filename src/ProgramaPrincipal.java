@@ -18,6 +18,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 
 import static java.awt.BorderLayout.*;
 
@@ -25,11 +26,18 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
 
     //Atributos
     BorderLayout borderl;
-    JPanel panel1, panel2, panel3, panel4, panel5;
-    JButton botonatras, botonsiguiente, botoncancelar, comprobar;
-    JLabel label1, label2, label3, label4, label5, label6, label7, label8, label9;
+    JPanel panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8;
+    JButton botonatras, botonsiguiente, botoncancelar, comprobar, generar, botonfinalizar;
+    JLabel label1, label2, label3, label4, label5, label6, label7, label8, label9, label10, label11, label12;
     CardLayout carta = new CardLayout();
     JTextField nombre, correo, contrasena;
+    JComboBox pais, provincias;
+    JTextArea resultado;
+    JCheckBox guardar;
+    File x;
+    String texto;
+    boolean email = false;
+    boolean nombr = false;
 
     public ProgramaPrincipal(){
 
@@ -130,7 +138,7 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
 
     }
 
-    //Método para crear los textos de la ventana o tarjeta 1
+    //Método para crear los textos de la ventana o tarjeta 2
     private void initTarjeta2() {
 
         panel5 = new JPanel(null);
@@ -176,20 +184,267 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
 
     }
 
+    //Método para crear los textos de la ventana o tarjeta 3
     private void initTarjeta3() {
 
+        //Creación los combobox de la tarjeta o ventana 3
+        panel6 = new JPanel(null);
+        panel6.setBackground(Color.CYAN);
+        panel3.add(panel6);
+        add(panel3, CENTER);
+
+        pais = new JComboBox<>();
+        pais.setBounds(70,315,180,60);
+        pais.setFont(new Font("",Font.ROMAN_BASELINE,26));
+        pais.addItem("España");
+        pais.addItem("EEUU");
+        panel6.add(pais);
+        pais.addActionListener(this);
+        pais.setSelectedItem(null);
+        provincias = new JComboBox<>();
+        provincias.setBounds(70,455,180,60);
+        provincias.setFont(new Font("",Font.ROMAN_BASELINE,26));
+        panel6.add(provincias);
+
+        generar = new JButton("Generar");
+        generar.setBounds(400, 315, 180, 60);
+        generar.setFont(new Font("a",Font.ROMAN_BASELINE,30));
+        generar.setBorder(new LineBorder(Color.black));
+        generar.addActionListener(this);
+        panel6.add(generar);
+
     }
 
+    //Método para crear los textos de la ventana o tarjeta 4
     private void initTarjeta4() {
 
+        //me muestra la informacion y me permite guardarla en mi dispositivo
+        panel7 = new JPanel(null);
+        panel7.setBackground(Color.CYAN);
+        panel3.add(panel7);
+        add(panel3, CENTER);
+        resultado = new JTextArea();
+        resultado.setBounds(65,225,1130,600);
+        resultado.setBorder(new LineBorder(Color.black));
+        panel7.add(resultado);
+        label10 = new JLabel("Datos recogidos");
+
+
+        guardar =  new JCheckBox("Guardar");
+        guardar.setBounds(65,40,100,50);
+        guardar.addActionListener(this);
+        panel7.add(guardar);
+
     }
 
+    //Método para crear los textos de la ventana o tarjeta 4
     private void initTarjeta5() {
+
+        //Dos label para indicar que has acabado y las instrucciones para salir
+        panel8 = new JPanel(null);
+        panel8.setBackground(Color.CYAN);
+
+        panel3.add(panel8);
+        add(panel3, CENTER);
+
+        label11 = new JLabel("Has finalizado el formulario.");
+        label11.setBounds(70, 350,750,100);
+        label11.setFont(new Font("", Font.ROMAN_BASELINE,45));
+        panel8.add(label11);
+        label12 = new JLabel("Dale a finalizar para salir");
+        label12.setBounds(70, 550,750,100);
+        label12.setFont(new Font("", Font.ROMAN_BASELINE,45));
+        panel8.add(label12);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        if(e.getSource()==botonsiguiente){
+            //cambio de ventana o de tarjeta si pulsa siguiente
+            carta.next(panel3);
+
+            if(panel8.isShowing()){
+                panel2.remove(botonsiguiente);
+                botonfinalizar = new JButton("finalizar");
+                botonfinalizar.setFont(new Font("a",Font.ROMAN_BASELINE,18));
+                botonfinalizar.setBorder(new LineBorder(Color.black));
+                botonfinalizar.addActionListener(this);
+                panel2.add(botonfinalizar);
+            }
+
+        }
+        else if(e.getSource()==botonatras){
+            carta.previous(panel3);
+        }
+        //hago que salga si pulsa cancelar
+        else if(e.getSource()==botoncancelar){
+            System.exit(0);
+        }
+        //hago que salga si pulsa finalizar
+        else if(e.getSource()==botonfinalizar){
+            System.exit(0);
+        }
+        if(e.getSource()==pais){
+            //si pincho en españa que salgan las provincias del .txt y si es en eeuu que salga sus estados de su .txt
+            if (pais.getSelectedItem()=="España"){
+                provincias.removeAllItems();//para que no se concatenen
+                try{
+                    File archivo1 = new File("src/espana.txt");
+                    FileReader leer = new FileReader(archivo1);
+                    BufferedReader leer1 = new BufferedReader(leer);
+                    String linea = leer1.readLine();
+                    while (linea!=null){
+                        provincias.addItem(linea);
+                        linea= leer1.readLine();
+                    }
+                }catch(Exception es){
+                    System.out.println("error");
+                }
+
+
+            }
+            else if(e.getSource()==pais) {
+                if (pais.getSelectedItem() == "EEUU") {
+                    provincias.removeAllItems();//para que no se concatenen
+                    try {
+                        File archivo1 = new File("src/EEUU.txt");
+                        FileReader leer = new FileReader(archivo1);
+                        BufferedReader leer1 = new BufferedReader(leer);
+                        String linea = leer1.readLine();
+                        while (linea != null) {
+                            provincias.addItem(linea);
+                            linea = leer1.readLine();
+                        }
+                    } catch (Exception es) {
+                        System.out.println("error");
+                    }
+
+
+                }
+            }
+
+        }
+
+        if (e.getSource() == guardar){
+            //guardo el resultado
+            x = null;
+
+            JFileChooser fc = new JFileChooser();
+            fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+            int resultado1 = fc.showOpenDialog( null);
+
+            if (resultado1 == JFileChooser.APPROVE_OPTION){
+                x = fc.getSelectedFile();
+
+            }
+            File fichero = new File(x, "Datos.txt");
+
+            try (FileWriter fw = new FileWriter(fichero)) {
+                fw.write(texto);
+                fw.flush();
+
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+
+            }
+        }
+
+        if (e.getSource()== comprobar){
+            String textoc = contrasena.getText();
+            int longitud = 0;
+            int contador = 0;
+            int contadorm = 0;
+            int simbolos = 0;
+            int contmy = 0;
+            if (!nombre.getText().equals("")){
+                nombr = true;
+            }else{
+                JOptionPane.showMessageDialog(null, "El nombre debe tener al menos un caracter");
+            }
+            if(!correo.getText().equals("")){
+                if(correo.getText().contains("@")){
+                    email = true;
+                }
+
+            }else{
+                JOptionPane.showMessageDialog(null, "El correo debe tenr un @");
+            }if(!contrasena.getText().equals("")){
+                for (int i = 0; i < contrasena.getText().length(); i++){ //Fuente: https://es.stackoverflow.com/questions/309558/c%c3%b3mo-validar-caracteres-especiales-en-java
+
+                    if ((textoc.charAt(i) >= 47 && textoc.charAt(i) <= 58)//numeros
+                            || (textoc.charAt(i) >= 64 && textoc.charAt(i) <= 91)//mayusculas
+                            || (textoc.charAt(i) >= 32 && textoc.charAt(i) <= 44)//signos
+                            || (textoc.charAt(i) >= 97 && textoc.charAt(i) <= 122) ){//minusculas
+
+                    }
+
+                    if (textoc.charAt(i) >= 47 && textoc.charAt(i) <= 58){// Cuenta la cantidad de numeros
+                        contador++;
+                    }
+
+                    if ((textoc.charAt(i) > 32 && textoc.charAt(i) < 44)) { // Cuenta la cantidad signos
+                        simbolos++;
+                    }
+
+                    if (textoc.charAt(i) >= 64 && textoc.charAt(i) <= 91){// Cuenta la cantidad de mayusculas
+                        contmy++;
+                    }
+                    if (textoc.charAt(i) >= 97 && textoc.charAt(i) <= 122){// Cuenta la cantidad de minusculas
+                        contadorm++;
+                    }
+
+                    longitud = (i + 1);// Cuenta la longitud del password
+
+                }
+                if (contador < 1 || contmy < 1 || (longitud < 8 || longitud >16) || contadorm < 1 || simbolos < 1 ){
+
+                    contrasena.setBorder(new LineBorder(Color.RED));
+                    if (contador < 1){// Revisa que el password contenga minimo 1 numero
+                        JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos un numero");
+
+                    }
+                    if (contmy < 1){// Revisa que el password contenga minimo 1 mayuscula
+                        JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos una mayúscula");
+
+                    }
+                    if (longitud < 8 || longitud >16){//Revisa que la contraseña tenga entre 8 y 16 caracteres
+                        JOptionPane.showMessageDialog(null, "La contraseña debe tener entre 8 y 16 caracteres");
+
+                    }
+                    if (contadorm < 1){// Revisa que el password contenga minimo 1 minuscula
+                        JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos una minuscula");
+
+                    }
+
+                    if (simbolos < 1){// Revisa que el password contenga minimo 1 signo
+                        JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos uno de estos caracteres especiales: ( ! # $ % & ' ( ) + - )");
+
+                    }
+
+
+                }
+            }
+        }
+
+        if (e.getSource() == generar){
+            if (pais.getSelectedItem() == null || provincias.getSelectedItem() == null){
+                JOptionPane.showMessageDialog(null, "Uno o mas campos estan sin rellenar");
+            }else{
+                carta.next(panel3);
+                texto = "";
+                texto += "Nombre: " + nombre.getText();
+                texto+= System.lineSeparator() + "Contraseña: " + contrasena.getText();
+                texto+= System.lineSeparator() + "Email: " + correo.getText();
+                texto+= System.lineSeparator() + "Pais : " + pais.getSelectedItem();
+                texto+= System.lineSeparator() + "Estado/Provincia : " + provincias.getSelectedItem();
+
+                resultado.setText(texto);
+
+            }
+        }
 
     }
 
