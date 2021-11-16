@@ -56,7 +56,7 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
 
         setLayout(null);
         setTitle("Práctica Layouts");
-        setSize(1750, 825);
+        setSize(1750, 830);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -77,18 +77,18 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
         panel1.add(label,WEST);
 
         panel2 = new JPanel(new GridLayout(1,2));
-        botonatras = new JButton("atras");
+        botonatras = new JButton("ATRÁS");
         botonatras.setFont(new Font("a",Font.ROMAN_BASELINE,30));
         botonatras.setBorder(new LineBorder(Color.black));
         add(panel2, SOUTH);
         panel2.add(botonatras);
 
-        botonsiguiente = new JButton("siguiente");
+        botonsiguiente = new JButton("SIGUIENTE");
         botonsiguiente.setFont(new Font("a",Font.ROMAN_BASELINE,30));
         botonsiguiente.setBorder(new LineBorder(Color.black));
         panel2.add(botonsiguiente);
 
-        botoncancelar = new JButton("cancelar");
+        botoncancelar = new JButton("CANCELAR");
         botoncancelar.setFont(new Font("a",Font.ROMAN_BASELINE,30));
         botoncancelar.setBorder(new LineBorder(Color.black));
         panel2.add(botoncancelar);
@@ -146,7 +146,7 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
         panel3.add(panel5);
         add(panel3, CENTER);
 
-        label7 = new JLabel("NOMBRE:");
+        label7 = new JLabel("NOMBRE Y APELLIDOS:");
         label7.setBounds(70, 110,900,100);
         label7.setFont(new Font("", Font.ROMAN_BASELINE,26));
         panel5.add(label7);
@@ -160,16 +160,16 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
         panel5.add(label9);
 
         nombre = new JTextField();
-        nombre.setBounds(220, 120,450,60);
+        nombre.setBounds(380, 120,450,60);
         nombre.setFont(new Font("", Font.ROMAN_BASELINE,26));
         panel5.add(nombre);
 
         correo = new JTextField();
-        correo.setBounds(220, 200,450,60);
+        correo.setBounds(210, 200,450,60);
         correo.setFont(new Font("", Font.ROMAN_BASELINE,26));
         panel5.add(correo);
 
-        contrasena = new JTextField();
+        contrasena = new JPasswordField();
         contrasena.setBounds(275, 280,450,60);
         contrasena.setFont(new Font("", Font.ROMAN_BASELINE,26));
         panel5.add(contrasena);
@@ -218,7 +218,7 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
     //Método para crear los textos de la ventana o tarjeta 4
     private void initTarjeta4() {
 
-        //me muestra la informacion y me permite guardarla en mi dispositivo
+        //me muestra la información y me permite guardarla en mi dispositivo
         panel7 = new JPanel(null);
         panel7.setBackground(Color.CYAN);
         panel3.add(panel7);
@@ -230,7 +230,7 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
         label10 = new JLabel("Datos recogidos");
 
 
-        guardar =  new JCheckBox("Guardar");
+        guardar =  new JCheckBox("GUARDAR");
         guardar.setBounds(65,40,100,50);
         guardar.addActionListener(this);
         panel7.add(guardar);
@@ -242,7 +242,7 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
 
         //Dos label para indicar que has acabado y las instrucciones para salir
         panel8 = new JPanel(null);
-        panel8.setBackground(Color.CYAN);
+        panel8.setBackground(Color.GREEN);
 
         panel3.add(panel8);
         add(panel3, CENTER);
@@ -267,8 +267,8 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
 
             if(panel8.isShowing()){
                 panel2.remove(botonsiguiente);
-                botonfinalizar = new JButton("finalizar");
-                botonfinalizar.setFont(new Font("a",Font.ROMAN_BASELINE,18));
+                botonfinalizar = new JButton("FINALIZAR");
+                botonfinalizar.setFont(new Font("a",Font.ROMAN_BASELINE,30));
                 botonfinalizar.setBorder(new LineBorder(Color.black));
                 botonfinalizar.addActionListener(this);
                 panel2.add(botonfinalizar);
@@ -291,7 +291,7 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
             if (pais.getSelectedItem()=="España"){
                 provincias.removeAllItems();//para que no se concatenen
                 try{
-                    File archivo1 = new File("src/espana.txt");
+                    File archivo1 = new File("src/Espana.txt");
                     FileReader leer = new FileReader(archivo1);
                     BufferedReader leer1 = new BufferedReader(leer);
                     String linea = leer1.readLine();
@@ -370,7 +370,7 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
                 }
 
             }else{
-                JOptionPane.showMessageDialog(null, "El correo debe tenr un @");
+                JOptionPane.showMessageDialog(null, "El correo debe tener un @");
             }if(!contrasena.getText().equals("")){
                 for (int i = 0; i < contrasena.getText().length(); i++){ //Fuente: https://es.stackoverflow.com/questions/309558/c%c3%b3mo-validar-caracteres-especiales-en-java
 
@@ -402,11 +402,11 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
                 if (contador < 1 || contmy < 1 || (longitud < 8 || longitud >16) || contadorm < 1 || simbolos < 1 ){
 
                     contrasena.setBorder(new LineBorder(Color.RED));
-                    if (contador < 1){// Revisa que el password contenga minimo 1 numero
-                        JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos un numero");
+                    if (contador < 1){// Revisa que el password contenga mínimo 1 numero
+                        JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos un número");
 
                     }
-                    if (contmy < 1){// Revisa que el password contenga minimo 1 mayuscula
+                    if (contmy < 1){// Revisa que el password contenga mínimo 1 mayúscula
                         JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos una mayúscula");
 
                     }
@@ -414,12 +414,12 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
                         JOptionPane.showMessageDialog(null, "La contraseña debe tener entre 8 y 16 caracteres");
 
                     }
-                    if (contadorm < 1){// Revisa que el password contenga minimo 1 minuscula
-                        JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos una minuscula");
+                    if (contadorm < 1){// Revisa que el password contenga mínimo 1 minúscula
+                        JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos una minúscula");
 
                     }
 
-                    if (simbolos < 1){// Revisa que el password contenga minimo 1 signo
+                    if (simbolos < 1){// Revisa que el password contenga mínimo 1 signo
                         JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos uno de estos caracteres especiales: ( ! # $ % & ' ( ) + - )");
 
                     }
