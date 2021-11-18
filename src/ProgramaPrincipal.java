@@ -107,7 +107,7 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
 
         panel3 = new JPanel(carta);
         panel4 = new JPanel(null);
-        panel4.setBackground(Color.CYAN);
+        panel4.setBackground(Color.YELLOW);
         panel3.add(panel4);
         carta.show(panel3,"");
         add(panel3, CENTER);
@@ -189,7 +189,7 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
 
         //Creación los combobox de la tarjeta o ventana 3
         panel6 = new JPanel(null);
-        panel6.setBackground(Color.CYAN);
+        panel6.setBackground(Color.ORANGE);
         panel3.add(panel6);
         add(panel3, CENTER);
 
@@ -220,7 +220,7 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
 
         //me muestra la información y me permite guardarla en mi dispositivo
         panel7 = new JPanel(null);
-        panel7.setBackground(Color.CYAN);
+        panel7.setBackground(Color.red);
         panel3.add(panel7);
         add(panel3, CENTER);
         resultado = new JTextArea();
@@ -328,7 +328,7 @@ public class ProgramaPrincipal extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == guardar){
-            //guardo el resultado
+            //guardo el resultado eligiendo la ruta donde poner los datos
             x = null;
 
             JFileChooser fc = new JFileChooser();
